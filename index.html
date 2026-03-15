@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Aura Enterprise - 重新定义企业效率</title>
+    <style>
+        /* CSS 变量与重置 */
+        :root {
+            --bg-color: #fbfbfd;
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --apple-blue: #0071e3;
+            --apple-blue-hover: #0077ED;
+            --dark-bg: #000000;
+            --dark-text: #f5f5f7;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; }
+        
+        /* 动画定义 */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-in {
+            animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+        }
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+
+        /* 顶部导航 (毛玻璃效果) */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 52px;
+            background: rgba(251, 251, 253, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            z-index: 9999;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-container {
+            width: 100%;
+            max-width: 980px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            font-size: 12px;
+            font-weight: 400;
+        }
+
+        .nav-logo { font-weight: 600; font-size: 16px; color: var(--text-primary); }
+        
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { color: rgba(0,0,0,0.8); transition: color 0.3s; }
+        .nav-links a:hover { color: var(--apple-blue); }
+
+        .nav-cta {
+            background-color: var(--text-primary);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 980px;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+        .nav-cta:hover { opacity: 0.8; }
+
+        /* 首屏 Hero 区域 */
+        .hero {
+            padding: 160px 20px 100px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            font-weight: 700;
+            letter-spacing: -0.015em;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #1d1d1f 0%, #434350 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h2 {
+            font-size: 28px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+
+        .cta-group { display: flex; gap: 20px; justify-content: center; margin-bottom: 60px; }
+        
+        .btn {
+            font-size: 17px;
+            padding: 12px 24px;
+            border-radius: 980px;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .btn-primary { background-color: var(--apple-blue); color: white; }
+        .btn-primary:hover { background-color: var(--apple-blue-hover); }
+        
+        .btn-secondary { color: var(--apple-blue); display: flex; align-items: center; gap: 5px; }
+        .btn-secondary:hover { text-decoration: underline; }
+
+        .hero-image-placeholder {
+            width: 100%;
+            max-width: 1000px;
+            height: 500px;
+            background: linear-gradient(135deg, #e5e5ea 0%, #f2f2f7 100%);
+            border-radius: 24px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.08);
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-secondary);
+            font-size: 20px;
+        }
+
+        /* 网格特性区域 */
+        .features {
+            padding: 120px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 48px;
+            font-weight: 600;
+            margin-bottom: 80px;
+            letter-spacing: -0.005em;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+        }
+
+        .card-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .card h3 { font-size: 21px; margin-bottom: 12px; font-weight: 600; }
+        .card p { font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
+
+        /* 暗色 "Pro" 区域 */
+        .pro-section {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+            padding: 160px 20px;
+            text-align: center;
+        }
+
+        .pro-section h2 {
+            font-size: 56px;
+            font-weight: 700;
+            background: linear-gradient(180deg, #ffb6ff 0%, #b344ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .pro-section p { font-size: 24px; color: #a1a1a6; max-width: 600px; margin: 0 auto 50px; }
+
+        /* 页脚 */
+        footer {
+            background-color: var(--bg-color);
+            padding: 40px 20px;
+            border-top: 1px solid #d2d2d7;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .footer-content {
+            max-width: 980px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 48px; }
+            .hero h2 { font-size: 21px; }
+            .hero-image-placeholder { height: 300px; }
+            .nav-links { display: none; } /* 移动端隐藏中间链接，保持极简 */
+            .section-title { font-size: 36px; }
+            .pro-section h2 { font-size: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="nav-logo">Aura Enterprise</a>
+            <div class="nav-links">
+                <a href="#overview">概览</a>
+                <a href="#features">功能</a>
+                <a href="#pro">Pro 级性能</a>
+                <a href="#security">企业安全</a>
+            </div>
+            <a href="#" class="nav-cta">立即购买</a>
+        </div>
+    </nav>
+
+    <section class="hero" id="overview">
+        <h1 class="animate-fade-in">你的企业，超乎想象。</h1>
+        <h2 class="animate-fade-in delay-1">强劲动力，极简体验，专为现代组织打造。</h2>
+        
+        <div class="cta-group animate-fade-in delay-2">
+            <button class="btn btn-primary">免费试用 14 天</button>
+            <a href="#features" class="btn btn-secondary">进一步了解 &gt;</a>
+        </div>
+
+        <div class="hero-image-placeholder animate-fade-in delay-2">
+            [ 软件 / 硬件产品界面展示图 ]
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <h2 class="section-title">全面实力，<br>面面俱到。</h2>
+        
+        <div class="grid">
+            <div class="card">
+                <div class="card-icon">⚡️</div>
+                <h3>闪电般的协同效能</h3>
+                <p>采用全新的自研引擎，数据同步延迟低至毫秒级。无论团队身处何地，协作如同共处一室般流畅自然。</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🔒</div>
+                <h3>金融级安全防护</h3>
+                <p>端到端加密、自定义访问控制与多因素认证。我们把最复杂的安全逻辑，隐藏在最简单的操作背后。</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">✨</div>
+                <h3>AI 原生赋能</h3>
+                <p>内置智能助理，自动提取核心数据并生成简报。让机器学习处理繁琐任务，释放人类的创造力。</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">📊</div>
+                <h3>全局数据洞察</h3>
+                <p>一目了然的可视化看板。无需专业数据分析师，也能让复杂的业务指标变得清晰易懂，决策更果断。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="pro-section" id="pro">
+        <h2>Aura Max. 性能之巅。</h2>
+        <p>专为需要处理海量并发与庞大数据集的大型企业量身定制。</p>
+        <button class="btn btn-primary" style="background-color: white; color: black;">联系企业销售</button>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div>Copyright © 2026 Aura Inc. 保留所有权利。</div>
+            <div>
+                <a href="#" style="color: var(--text-secondary); margin-left: 15px;">隐私政策</a>
+                <a href="#" style="color: var(--text-secondary); margin-left: 15px;">使用条款</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
